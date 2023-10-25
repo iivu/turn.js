@@ -1049,7 +1049,12 @@ turnMethods = {
 
 			e.stopPropagation();
 
-		if ((new Date().getTime())-data.time<200 || point.x<0 || point.x>$(this).width()) {
+		// if ((new Date().getTime())-data.time<200 || point.x<0 || point.x>$(this).width()) {
+			if(
+				(new Date().getTime())-data.time<200
+				|| ( (point.corner === 'bl' || point.corner === 'tl') && point.x > $(this).width() / 6 )
+				|| ( (point.corner === 'br' || point.corner === 'tr') && point.x < ($(this).width() / 6 * 5))
+			) {
 			e.preventDefault();
 			data.opts.turn.data().tpage = data.opts.next;
 			data.opts.turn.turn('update');
